@@ -1,0 +1,30 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="TMquiz" parallel="classes" thread-count="2">
+
+	<parameter name="localtest" value="true" />
+	<parameter name="selenium.remote.server" value="http://localhost:4444/wd/hub" />
+	<parameter name="server.test" value="http://localhost:8080" />
+	<parameter name="ie.driver" value="D:/projects/ci/selenium-drivers/iedriverserver.exe" />
+	<parameter name="chrome.driver" value="D:/projects/ci/selenium-drivers/chromedriver.exe" />
+
+	<test name="selenium-firefox" enabled="false">
+		<parameter name="selenium.browser" value="firefox" />
+		<packages>
+			<package name="com.tmquiz.selenium.*" />
+		</packages>
+	</test>
+	<test name="selenium-iexplore" enabled="false">
+		<parameter name="selenium.browser" value="iexplore" />
+		<packages>
+			<package name="com.tmquiz.selenium.*" />
+		</packages>
+	</test>
+	<test name="selenium-chrome" enabled="true">
+		<parameter name="selenium.browser" value="chrome" />
+		<packages>
+			<package name="com.tmquiz.selenium.*" />
+		</packages>
+	</test>
+</suite>
+
