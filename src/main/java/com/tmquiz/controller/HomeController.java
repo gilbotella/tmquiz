@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @Controller
 @SessionAttributes("quiz")
 class HomeController {
-	@RequestMapping(value="/home", method = RequestMethod.GET)
+	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String home() throws IOException {
 		return "home";
 	}
 
-	@RequestMapping(value="/about", method = RequestMethod.GET)
+	@RequestMapping(value = "/about", method = RequestMethod.GET)
 	public String about() throws IOException {
 		return "about";
 	}

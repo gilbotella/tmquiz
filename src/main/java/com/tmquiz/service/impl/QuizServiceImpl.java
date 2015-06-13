@@ -10,7 +10,6 @@ import java.util.Random;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
-
 import com.tmquiz.model.QuizBean;
 import com.tmquiz.model.QuizLevel;
 import com.tmquiz.model.ResponseBean;
@@ -30,7 +29,7 @@ class QuizServiceImpl implements QuizService {
 	private Random rand = new Random();
 
 	public TmBean getATrademark(Integer key) throws IOException {
-		if(tms.size()==0) {
+		if (tms.size() == 0) {
 			parseFile();
 		}
 		return tms.get(key);
@@ -51,8 +50,7 @@ class QuizServiceImpl implements QuizService {
 				cont++;
 				key = it.next();
 			} while (cont < i);
-			quiz.getQuestions().put(tms.get(key).getId(),
-					new ResponseBean(tms.get(key)));
+			quiz.getQuestions().put(tms.get(key).getId(), new ResponseBean(tms.get(key)));
 		}
 		return quiz;
 	}
@@ -76,8 +74,7 @@ class QuizServiceImpl implements QuizService {
 				key = it.next();
 			} while (cont < pos);
 			if (!quiz.getQuestions().containsKey(key)) {
-				quiz.getQuestions().put(tms.get(key).getId(),
-						new ResponseBean(tms.get(key)));
+				quiz.getQuestions().put(tms.get(key).getId(), new ResponseBean(tms.get(key)));
 			}
 		}
 		return quiz;
@@ -85,15 +82,13 @@ class QuizServiceImpl implements QuizService {
 
 	private void parseFile() throws IOException {
 
-		BufferedReader in = new BufferedReader(new InputStreamReader(
-				tmquiz.getInputStream()));
+		BufferedReader in = new BufferedReader(new InputStreamReader(tmquiz.getInputStream()));
 		String line = null;
 
 		String[] tm;
 		while ((line = in.readLine()) != null) {
 			tm = line.split("\\|");
-			tms.put(Integer.valueOf(tm[0]), new TmBean(Integer.valueOf(tm[0]),
-					tm[1], tm[2]));
+			tms.put(Integer.valueOf(tm[0]), new TmBean(Integer.valueOf(tm[0]), tm[1], tm[2]));
 		}
 	}
 }

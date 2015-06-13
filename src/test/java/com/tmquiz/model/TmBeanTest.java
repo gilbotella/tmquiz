@@ -1,10 +1,8 @@
 package com.tmquiz.model;
 
 import static org.testng.Assert.assertEquals;
-
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
-
 import com.tmquiz.model.TmBean;
 
 public class TmBeanTest {

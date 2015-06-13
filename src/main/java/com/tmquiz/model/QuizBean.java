@@ -3,7 +3,6 @@ package com.tmquiz.model;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-
 import com.tmquiz.model.ResponseBean.ResponseState;
 
 /**

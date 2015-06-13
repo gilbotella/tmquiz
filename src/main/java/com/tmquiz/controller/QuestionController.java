@@ -1,10 +1,8 @@
 package com.tmquiz.controller;
 
 import java.io.IOException;
-
 import javax.inject.Inject;
 import javax.validation.Valid;
-
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
-
 import com.tmquiz.model.QuizBean;
 import com.tmquiz.model.ResponseBean;
 import com.tmquiz.model.ResponseTmBean;
@@ -46,8 +43,7 @@ class QuestionController {
 	 * Shows the panel with trademarks
 	 */
 	@RequestMapping(value = "/question/{id}", method = RequestMethod.GET)
-	public String form(@ModelAttribute("quiz") QuizBean quiz,
-			@PathVariable Integer id, ModelMap modelo) throws IOException {
+	public String form(@ModelAttribute("quiz") QuizBean quiz, @PathVariable Integer id, ModelMap modelo) throws IOException {
 
 		modelo.addAttribute("question", quiz.getQuestions().get(id));
 
@@ -58,17 +54,15 @@ class QuestionController {
 	 * Shows the panel with trademarks
 	 */
 	@RequestMapping(value = "/response", method = RequestMethod.POST)
-	public String form(@ModelAttribute("quiz") QuizBean quiz,
-			@RequestParam Integer id, @Valid ResponseTmBean response,
-			ModelMap modelo, SessionStatus sessionStatus) throws IOException {
+	public String form(@ModelAttribute("quiz") QuizBean quiz, @RequestParam Integer id, @Valid ResponseTmBean response, ModelMap modelo,
+			SessionStatus sessionStatus) throws IOException {
 		ResponseBean rb = quiz.getQuestions().get(id);
 
 		if (response.getTmname().equalsIgnoreCase(rb.getTm().getName())) {
 			rb.setState(ResponseState.CORRECT);
 		} else {
-			if (StringUtils.getLevenshteinDistance(
-					StringUtils.upperCase(response.getTmname()),
-					StringUtils.upperCase(rb.getTm().getName())) > 3) {
+			if (StringUtils
+					.getLevenshteinDistance(StringUtils.upperCase(response.getTmname()), StringUtils.upperCase(rb.getTm().getName())) > 3) {
 				rb.setState(ResponseState.FAILED);
 			} else {
 				rb.setState(ResponseState.SIMILAR);
@@ -77,8 +71,7 @@ class QuestionController {
 		if (quiz.isResolved()) {
 			sessionStatus.setComplete();
 
-			modelo.addAttribute("time", getTimeInFormat((System
-					.currentTimeMillis() - quiz.getStartTime()) / 1000));
+			modelo.addAttribute("time", getTimeInFormat((System.currentTimeMillis() - quiz.getStartTime()) / 1000));
 
 			return "congratulations";
 		}
@@ -90,8 +83,6 @@ class QuestionController {
 		long minutes = (totalSecs % 3600) / 60;
 		long seconds = totalSecs % 60;
 
-		return (hours > 0 ? hours + "h " : "")
-				+ (minutes > 0 ? minutes + "m " : "")
-				+ (seconds > 0 ? seconds + "s " : "");
+		return (hours > 0 ? hours + "h " : "") + (minutes > 0 ? minutes + "m " : "") + (seconds > 0 ? seconds + "s " : "");
 	}
 }

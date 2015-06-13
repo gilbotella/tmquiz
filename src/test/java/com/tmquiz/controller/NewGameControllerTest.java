@@ -6,21 +6,15 @@ import static org.springframework.test.web.server.request.MockMvcRequestBuilders
 import static org.springframework.test.web.server.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.server.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.server.result.MockMvcResultMatchers.view;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.springframework.test.web.server.MockMvc;
-import org.springframework.test.web.server.MvcResult;
+import org.springframework.test.web.server.*;
 import org.springframework.test.web.server.setup.MockMvcBuilders;
 import org.springframework.web.servlet.ViewResolver;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import org.springframework.web.servlet.view.JstlView;
+import org.springframework.web.servlet.view.*;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
-
-import com.tmquiz.controller.NewGameController;
+import org.testng.annotations.*;
 import com.tmquiz.model.QuizBean;
 
 @ContextConfiguration("classpath:servlet-context.xml")
@@ -33,8 +27,7 @@ public class NewGameControllerTest extends AbstractTestNGSpringContextTests {
 
 	@BeforeClass
 	public void setUp() throws Exception {
-		mockMvc = MockMvcBuilders.standaloneSetup(controller)
-				.setViewResolvers(viewResolver()).build();
+		mockMvc = MockMvcBuilders.standaloneSetup(controller).setViewResolvers(viewResolver()).build();
 	}
 
 	@Test
@@ -49,15 +42,13 @@ public class NewGameControllerTest extends AbstractTestNGSpringContextTests {
 
 	@Test
 	public void testNewGameError() throws Exception {
-		mockMvc.perform(get("/newGame/{way}", "error"))
-				.andExpect(status().isOk()).andExpect(view().name("quizPanel"));
+		mockMvc.perform(get("/newGame/{way}", "error")).andExpect(status().isOk()).andExpect(view().name("quizPanel"));
 	}
 
 	@Test
 	public void testNewGameGet() throws Exception {
 
-		mockMvc.perform(get("/newGame")).andExpect(status().isOk())
-				.andExpect(view().name("quizPanel"));
+		mockMvc.perform(get("/newGame")).andExpect(status().isOk()).andExpect(view().name("quizPanel"));
 	}
 
 	@Test
@@ -68,19 +59,15 @@ public class NewGameControllerTest extends AbstractTestNGSpringContextTests {
 	@Test
 	public void testNewGamePost() throws Exception {
 
-		mockMvc.perform(post("/newGame")).andExpect(
-				status().isMethodNotAllowed());
+		mockMvc.perform(post("/newGame")).andExpect(status().isMethodNotAllowed());
 	}
 
 	private void testNewGameWay(String way, int size) throws Exception {
-		MvcResult result = mockMvc.perform(get("/newGame/{way}", way))
-				.andExpect(status().isOk()).andExpect(view().name("quizPanel"))
-				.andExpect(model().attribute("quiz", any(QuizBean.class)))
-				.andReturn();
+		MvcResult result = mockMvc.perform(get("/newGame/{way}", way)).andExpect(status().isOk()).andExpect(view().name("quizPanel"))
+				.andExpect(model().attribute("quiz", any(QuizBean.class))).andReturn();
 
 		// Get attribute "quiz" from the model
-		QuizBean quiz = (QuizBean) result.getModelAndView().getModel()
-				.get("quiz");
+		QuizBean quiz = (QuizBean) result.getModelAndView().getModel().get("quiz");
 
 		Assert.assertEquals(quiz.getQuestions().size(), size);
 	}

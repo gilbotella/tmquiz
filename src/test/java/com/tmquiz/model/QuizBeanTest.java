@@ -3,12 +3,9 @@ package com.tmquiz.model;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
-
 import java.util.Map;
-
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
-
 import com.tmquiz.model.QuizBean;
 import com.tmquiz.model.QuizLevel;
 import com.tmquiz.model.ResponseBean;

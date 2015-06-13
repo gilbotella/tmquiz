@@ -1,16 +1,13 @@
 package com.tmquiz.webservices;
 
 import java.io.IOException;
-
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.tmquiz.model.QuizBean;
 import com.tmquiz.model.QuizLevel;
 import com.tmquiz.service.QuizService;
@@ -27,8 +24,7 @@ public class NewGameRestController {
 
 	@RequestMapping(value = "/{way}", method = RequestMethod.GET)
 	public @ResponseBody
-	QuizBean form(@PathVariable String way, HttpServletResponse response)
-			throws IOException {
+	QuizBean form(@PathVariable String way, HttpServletResponse response) throws IOException {
 		QuizBean quiz;
 		if (way.equals("easy")) {
 			quiz = quizService.createAGame(QuizLevel.EASY);
